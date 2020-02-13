@@ -1,9 +1,9 @@
 
-
-
 package frc.robot.subsystems;
 
+import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.EncoderType;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
@@ -24,6 +24,9 @@ public class ShiftingWestCoast extends Subsystem {
     // Declare drive train parts
     CANSparkMax rightMaster, rightSlave, leftMaster, leftSlave;
     DifferentialDrive drive;
+    
+
+    private CANEncoder leftEncoder, rightEncoder;
 
     DoubleSolenoid shifter;
 
@@ -47,6 +50,9 @@ public class ShiftingWestCoast extends Subsystem {
         leftSlave = new CANSparkMax(RobotMap.DRIVE_LEFT_SLAVE, MotorType.kBrushless);
 
         // TODO Encoder setup
+
+        leftEncoder = leftMaster.getEncoder(EncoderType.kQuadrature, 4096);
+        rightEncoder = rightMaster.getEncoder(EncoderType.kQuadrature, 4096);
 
         resetMotors();
 
@@ -75,6 +81,7 @@ public class ShiftingWestCoast extends Subsystem {
             drive.curvatureDrive(speed, rotation, true);
             break;
             //how are yoiu
+            //good :)
         }
     }
 
