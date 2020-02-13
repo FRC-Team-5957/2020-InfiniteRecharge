@@ -1,6 +1,7 @@
 
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.EncoderType;
@@ -9,9 +10,8 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
-// import edu.wpi.first.wpilibj.I2C.Port;
-// import edu.wpi.first.wpilibj.Encoder;
-// import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import frc.robot.Constants;
@@ -24,9 +24,11 @@ public class ShiftingWestCoast extends Subsystem {
     // Declare drive train parts
     CANSparkMax rightMaster, rightSlave, leftMaster, leftSlave;
     DifferentialDrive drive;
-    
 
+    
     private CANEncoder leftEncoder, rightEncoder;
+
+    private static AHRS navx;
 
     DoubleSolenoid shifter;
 
@@ -36,8 +38,8 @@ public class ShiftingWestCoast extends Subsystem {
     public ShiftingWestCoast() {
         initDrive();
         initShift();
-        // navx = new AHRS(SPI.Port.kMXP);
-        // navx.reset();
+        navx = new AHRS(SPI.Port.kMXP);
+        navx.reset();
     }
 
     public void initDrive() {
@@ -49,7 +51,7 @@ public class ShiftingWestCoast extends Subsystem {
         leftMaster = new CANSparkMax(RobotMap.DRIVE_LEFT_MASTER, MotorType.kBrushless);
         leftSlave = new CANSparkMax(RobotMap.DRIVE_LEFT_SLAVE, MotorType.kBrushless);
 
-        // TODO Encoder setup
+        // Encoder setup
 
         leftEncoder = leftMaster.getEncoder(EncoderType.kQuadrature, 4096);
         rightEncoder = rightMaster.getEncoder(EncoderType.kQuadrature, 4096);
@@ -65,6 +67,7 @@ public class ShiftingWestCoast extends Subsystem {
 
         drive = new DifferentialDrive(rightMaster, leftMaster);
         drive.setMaxOutput(Constants.DRIVE_LOW); // Maybe change this to high if its too slow
+
     }
 
     
@@ -74,6 +77,7 @@ public class ShiftingWestCoast extends Subsystem {
         double rotation = turnInput * Constants.TURN_SPEED;
         switch(mode) {
           //helllllllllllllllllllllllllllllllllllllllllo
+          //Hi
         case kArcade:
             drive.arcadeDrive(speed, rotation);
             break;
@@ -118,6 +122,14 @@ public class ShiftingWestCoast extends Subsystem {
         } else {
           shifter.set(Value.kReverse);
         }
+      }
+
+      public void restGyro(){
+        navx.reset();
+      }
+
+      public void getHeading() {
+        navx.getAngle();
       }
 
   @Override
