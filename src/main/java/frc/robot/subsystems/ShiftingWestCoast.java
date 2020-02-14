@@ -53,8 +53,9 @@ public class ShiftingWestCoast extends Subsystem {
 
         // Encoder setup
 
-        leftEncoder = leftMaster.getEncoder(EncoderType.kQuadrature, 4096);
-        rightEncoder = rightMaster.getEncoder(EncoderType.kQuadrature, 4096);
+        rightEncoder = leftMaster.getEncoder(EncoderType.kQuadrature, 4096);
+        leftEncoder = rightMaster.getEncoder(EncoderType.kQuadrature, 4096);
+
 
         resetMotors();
 
