@@ -14,6 +14,8 @@ import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 // import frc.robot.Utils;
@@ -32,6 +34,9 @@ public class ShiftingWestCoast extends Subsystem {
 
     DoubleSolenoid shifter;
 
+     // Odometry class for tracking robot pose
+    private DifferentialDriveOdometry m_odometry;
+
     
 
 
@@ -40,6 +45,13 @@ public class ShiftingWestCoast extends Subsystem {
         initShift();
         navx = new AHRS(SPI.Port.kMXP);
         navx.reset();
+    }
+
+    @Override
+    public void periodic() {
+      // Update the odometry in the periodic block
+      m_odometry.update(Rotation2d.fromDegrees(getHeading()), leftEncoder.getDistance(),
+      rightEncoder.getDistance());
     }
 
     public void initDrive() {
@@ -53,8 +65,9 @@ public class ShiftingWestCoast extends Subsystem {
 
         // Encoder setup
 
-        rightEncoder = leftMaster.getEncoder(EncoderType.kQuadrature, 4096);
-        leftEncoder = rightMaster.getEncoder(EncoderType.kQuadrature, 4096);
+        rightEncoder = leftMaster.getEncoder(EncoderType.kQuadrature, Constants.countsPerRev);
+        leftEncoder = rightMaster.getEncoder(EncoderType.kQuadrature, Constants.countsPerRev);
+        
 
 
         resetMotors();
@@ -70,6 +83,7 @@ public class ShiftingWestCoast extends Subsystem {
         drive.setMaxOutput(Constants.DRIVE_LOW); // Maybe change this to high if its too slow
 
     }
+
 
     
 
