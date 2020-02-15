@@ -14,15 +14,17 @@ import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 // import frc.robot.Utils;
 
 
-public class ShiftingWestCoast extends Subsystem {
+public class ShiftingWestCoast extends SubsystemBase  {
 
     // Declare drive train parts
     CANSparkMax rightMaster, rightSlave, leftMaster, leftSlave;
@@ -66,8 +68,9 @@ public class ShiftingWestCoast extends Subsystem {
 
         // Encoder setup
 
-        rightEncoder = leftMaster.getEncoder(EncoderType.kQuadrature, Constants.countsPerRev);
-        leftEncoder = rightMaster.getEncoder(EncoderType.kQuadrature, Constants.countsPerRev);
+        rightEncoder = new CANEncoder(rightMaster, EncoderType.kQuadrature, Constants.countsPerRev);
+        leftEncoder = new CANEncoder(leftMaster, EncoderType.kQuadrature, Constants.countsPerRev);
+
 
         
         rightEncoder.setPositionConversionFactor(Constants.countsPerMeter);
@@ -163,9 +166,28 @@ public class ShiftingWestCoast extends Subsystem {
        return navx.getYaw();
       }
 
-  @Override
-  protected void initDefaultCommand() {
-    // TODO Auto-generated method stub
-
+        /**
+   * Returns the currently-estimated pose of the robot.
+   *
+   * @return The pose.
+   */
+  public Pose2d getPose() {
+    return m_odometry.getPoseMeters();
   }
+   /**
+   * Controls the left and right sides of the drive directly with voltages.
+   *
+   * @param leftVolts  the commanded left output
+   * @param rightVolts the commanded right output
+   */
+  public void tankDriveVolts(double leftVolts, double rightVolts) {
+    leftMaster.setVoltage(leftVolts);
+    rightMaster.setVoltage(-rightVolts);
+    drive.feed();
+    // "It is very important to use the setVoltage() method rather than the ordinary set() method,
+    //  as this will automatically compensate for battery “voltage sag” during operation. 
+    //  Since our feedforward voltages are physically-meaningful (as they are based on measured characterization data), 
+    //  this is essential to ensuring their accuracy."
+  }
+
 }

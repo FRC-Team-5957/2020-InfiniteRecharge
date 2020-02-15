@@ -36,6 +36,6 @@ public class Constants {
     // Reasonable baseline values for a RAMSETE follower in units of meters and seconds
         //for more information on tuning these values (if it is required), see 
         //https://docs.wpilib.org/en/latest/docs/software/advanced-control/trajectories/ramsete.html#constructing-the-ramsete-controller-object
-        final double kRamseteB = 2;
-        final double kRamseteZeta = 0.7;
+        public final static double kRamseteB = 2;
+        public final static double kRamseteZeta = 0.7;
 }
