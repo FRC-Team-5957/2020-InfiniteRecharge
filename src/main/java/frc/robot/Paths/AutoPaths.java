@@ -37,7 +37,7 @@ public class AutoPaths {
   private Trajectory trajectory;
   DifferentialDriveKinematics kDriveKinematics;
 
-  AutoPaths() throws FileNotFoundException, IOException, ParseException {
+  public AutoPaths() throws FileNotFoundException, IOException, ParseException {
     drive = new ShiftingWestCoast();
 
     // parsing file "pathweaver.json"
@@ -86,7 +86,8 @@ try {
   return trajectory;
     }
 
-    public void autoMove(Trajectory trajectory) {
+    public void autoMove(String trajectoryJSON) {
+      Trajectory trajectory = getTrajectory(trajectoryJSON);
       RamseteCommand ramseteCommand = new RamseteCommand(
         trajectory,
         drive::getPose,

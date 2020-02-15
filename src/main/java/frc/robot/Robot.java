@@ -8,6 +8,11 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+
+import java.io.IOException;
+
+import org.json.simple.parser.ParseException;
+
 // import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -15,6 +20,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 // import frc.robot.subsystems.ShiftingWestCoast;
 // import frc.robot.subsystems.ShiftingWestCoast.DriveMode;
 import frc.robot.controls.DS;
+import frc.robot.Paths.AutoPaths;
 import frc.robot.Teleop.Drive;
 
 /**
@@ -30,15 +36,16 @@ public class Robot extends TimedRobot {
   // private String m_autoSelected;
   // private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
-  
   DS DS;
   public Drive drive;
+
+  AutoPaths auto;
 
   // private double m_LimelightSteerCommand = 0.0;
 
   /**
-   * This function is run when the robot is first started up and should be
-   * used for any initialization code.
+   * This function is run when the robot is first started up and should be used
+   * for any initialization code.
    */
   @Override
   public void robotInit() {
@@ -48,6 +55,12 @@ public class Robot extends TimedRobot {
 
     DS = new DS();
     drive = new Drive();
+    try {
+      auto = new AutoPaths();
+    } catch (IOException | ParseException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -83,6 +96,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
+    auto.autoMove("PathWeaver\\output\\Forward.wpilib.json");
    //helo
   }
 
