@@ -14,12 +14,14 @@ public class Constants {
 
 
     //wheel diameter in meter
-    public static final double  Wheel_Diameter  = 0 * 0.0254;
+    public static final double  Wheel_Diameter  = 8 * 0.0254;
+    static final double     DRIVE_LOW_GEAR_REDUCTION    = (40/12)*(60/27)*(64/20) ; 
+    static final double     DRIVE_HIGH_GEAR_REDUCTION    = (40/12)*(44/40)*(64/20) ;
 
     //Encoder Constants
-    public static final int     countsPerRev    = 42;
+    public static final int     countsPerRev    = 4096;
     public static final double  distancePerRev  = Wheel_Diameter*Math.PI;
-
+    public static final double  countsPerMeter  = (countsPerRev * DRIVE_LOW_GEAR_REDUCTION) /(distancePerRev);
 
 
     //Feedforward/Feedback Gains

@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 // import frc.robot.Utils;
@@ -50,8 +51,8 @@ public class ShiftingWestCoast extends Subsystem {
     @Override
     public void periodic() {
       // Update the odometry in the periodic block
-      m_odometry.update(Rotation2d.fromDegrees(getHeading()), leftEncoder.getDistance(),
-      rightEncoder.getDistance());
+      m_odometry.update(Rotation2d.fromDegrees(getHeading()), leftEncoder.getPosition(),
+      rightEncoder.getPosition());
     }
 
     public void initDrive() {
@@ -67,6 +68,10 @@ public class ShiftingWestCoast extends Subsystem {
 
         rightEncoder = leftMaster.getEncoder(EncoderType.kQuadrature, Constants.countsPerRev);
         leftEncoder = rightMaster.getEncoder(EncoderType.kQuadrature, Constants.countsPerRev);
+
+        
+        rightEncoder.setPositionConversionFactor(Constants.countsPerMeter);
+        leftEncoder.setPositionConversionFactor(Constants.countsPerMeter);
         
 
 
@@ -82,6 +87,10 @@ public class ShiftingWestCoast extends Subsystem {
         drive = new DifferentialDrive(rightMaster, leftMaster);
         drive.setMaxOutput(Constants.DRIVE_LOW); // Maybe change this to high if its too slow
 
+    }
+
+    public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+      return new DifferentialDriveWheelSpeeds(rightEncoder.getVelocity(), rightEncoder.getVelocity());
     }
 
 
@@ -124,6 +133,7 @@ public class ShiftingWestCoast extends Subsystem {
         leftMaster.setIdleMode(IdleMode.kBrake);
       //no no no no no no no no no 
       // nonononononon
+      //ye seyes eyes yes yes 
       }
       private void initShift() {
           //init soloenid
@@ -143,8 +153,14 @@ public class ShiftingWestCoast extends Subsystem {
         navx.reset();
       }
 
-      public void getHeading() {
-        navx.getAngle();
+
+  /**
+   * Returns the heading of the robot.
+   *
+   * @return the robot's heading in degrees, from -180 to 180
+   */
+      public double getHeading() {
+       return navx.getYaw();
       }
 
   @Override
