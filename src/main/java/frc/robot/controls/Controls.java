@@ -36,5 +36,7 @@ public class Controls {
         public static final int SENSITIVITY = 3;
 
     // Operator controls
-    // Leave this empty for now (Sarah and I will fill this out on our own)
+    // TODO Leave this empty for now (Sarah and I will fill this out on our own)
+
+    public static final int SHOOT = 0;
 }

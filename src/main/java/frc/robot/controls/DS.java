@@ -34,6 +34,11 @@ public class DS {
         return driver.getRawButton(Controls.DRIVE_SLOW);
     }
 
+    //Operator controls
+    public static boolean getShoot() {
+        return operator.getRawButton(Controls.SHOOT);
+    }
+
     // Utils
     private static double getAxis(int axis, Joystick j) {
         // only return axis values above 0.05

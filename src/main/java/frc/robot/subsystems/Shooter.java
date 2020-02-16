@@ -42,6 +42,10 @@ public class Shooter extends SubsystemBase {
     shooter.set(Constants.IDLE_SPEED);
   }
 
+  public double getVelocity() {
+    return encoder.getVelocity();
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
