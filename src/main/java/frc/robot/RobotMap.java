@@ -8,12 +8,13 @@ public class RobotMap {
     public static final int OPERATOR_USB = 1;
 
     //Motor DS IDs
-    public static final int DRIVE_RIGHT_MASTER = 1; /*  Change */
-    public static final int DRIVE_RIGHT_SLAVE = 2;  /*  These  */
-    public static final int DRIVE_LEFT_MASTER = 3;  /*  To be  */
-    public static final int DRIVE_LEFT_SLAVE = 4;   /* Correct */
+    public static final int DRIVE_RIGHT_MASTER = 1; 
+    public static final int DRIVE_RIGHT_SLAVE = 2;  
+    public static final int DRIVE_LEFT_MASTER = 3;  
+    public static final int DRIVE_LEFT_SLAVE = 4;   
 
-    // Robot part Ids
+    // Shooter Id
+    public static final int SHOOTER_ID = 5;  
 
     //Pnuematics
     public static final int PCM_ID = 10;

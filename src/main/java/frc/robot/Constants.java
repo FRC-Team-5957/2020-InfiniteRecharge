@@ -38,4 +38,8 @@ public class Constants {
         //https://docs.wpilib.org/en/latest/docs/software/advanced-control/trajectories/ramsete.html#constructing-the-ramsete-controller-object
         public final static double kRamseteB = 2;
         public final static double kRamseteZeta = 0.7;
+
+        //shooter constansts
+		public static final double SHOOT_SPEED = 1.0;
+		public static final double IDLE_SPEED = 0;
 }
