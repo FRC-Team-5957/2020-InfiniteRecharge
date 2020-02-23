@@ -32,4 +32,6 @@ public class RobotMap {
     public static final int DRIVE_SHIFT_B = 1;
     public static final int INTAKE_EXTEND_A = 2;
     public static final int INTAKE_EXTEND_B = 3;
+    public static final int CONTPANE_EXTEND_A = 4;
+    public static final int CONTPANE_EXTEND_B = 5;
 }

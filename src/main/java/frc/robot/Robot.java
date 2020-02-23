@@ -23,6 +23,8 @@ import frc.robot.controls.DS;
 import frc.robot.Paths.AutoPaths;
 import frc.robot.Teleop.Drive;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Magazine;
+import frc.robot.subsystems.ControlPanel;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -40,6 +42,8 @@ public class Robot extends TimedRobot {
   DS DS;
   public Drive drive;
   Intake intake;
+  Magazine mag;
+  ControlPanel contPanel;
 
   AutoPaths auto;
 
@@ -58,6 +62,7 @@ public class Robot extends TimedRobot {
     DS = new DS();
     drive = new Drive();
     intake = new Intake();
+    contPanel = new ControlPanel();
     try {
       auto = new AutoPaths();
     } catch (IOException | ParseException e) {
@@ -131,6 +136,9 @@ public class Robot extends TimedRobot {
 
   public void teleopControl() {
     drive.drive();
+    intakeControl();
+    magazineControl();
+    controlPanelControl();
   }
 
   public void intakeControl() {
@@ -144,6 +152,25 @@ public class Robot extends TimedRobot {
     }
 
     intake.extend(extended);
+  }
+
+  public void magazineControl() {
+    if (DS.getMagazine()) {
+      mag.advance();
+    }
+  }
+
+  public void controlPanelControl() {
+    boolean extended = false;
+    if (DS.getControlPanelExtend()) {
+      extended = !extended;
+    }
+
+    if (DS.getControlPanelSpin()) {
+      contPanel.panelSpin();
+    }
+
+    contPanel.extend(extended);
   }
 
 

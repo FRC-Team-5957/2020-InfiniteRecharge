@@ -47,11 +47,26 @@ public class DS {
         return operator.getRawButton(Controls.INTAKE_INTAKE);
     }
 
+    public static boolean getMagazine() {
+        return operator.getRawButton(Controls.MAGAZINE);
+    }
+
+    public static boolean getControlPanelExtend() {
+        return operator.getRawButtonPressed(Controls.CONTPANE_UP);
+    }
+
+    public static boolean getControlPanelSpin() {
+        return operator.getRawButton(Controls.CONTPANE_SPIN);
+    }
+
     // Utils
     private static double getAxis(int axis, Joystick j) {
         // only return axis values above 0.05
         return Math.abs(j.getRawAxis(axis)) < 0.05 ? 0 : j.getRawAxis(axis);
     }
 
-    
+    public static void vibrate(Joystick j, double intensity) {
+        j.setRumble(GenericHID.kLeftRumble, intensity);
+        j.setRumble(GenericHID.kRightRumble, intensity);
+    }
 }
