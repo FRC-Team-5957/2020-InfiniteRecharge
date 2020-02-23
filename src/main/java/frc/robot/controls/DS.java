@@ -39,6 +39,14 @@ public class DS {
         return operator.getRawButton(Controls.SHOOT);
     }
 
+    public static boolean getIntExtend() {
+        return operator.getRawButtonPressed(Controls.INTAKE_SLIDE);
+    }
+
+    public static boolean getIntSpin() {
+        return operator.getRawButton(Controls.INTAKE_INTAKE);
+    }
+
     // Utils
     private static double getAxis(int axis, Joystick j) {
         // only return axis values above 0.05

@@ -13,11 +13,23 @@ public class RobotMap {
     public static final int DRIVE_LEFT_MASTER = 3;  
     public static final int DRIVE_LEFT_SLAVE = 4;   
 
+    // Intake mc ID
+    public static final int INTAKE_ID = 6;
+
+    // Magazine mc IDs
+    public static final int MAGTOP_BELT = 7;
+    public static final int MAGBOT_BELT = 8;
+
     // Shooter Id
     public static final int SHOOTER_ID = 5;  
+
+    // Control Panel mc ID
+    public static final int CONTPANE_SPIN = 9;
 
     //Pnuematics
     public static final int PCM_ID = 10;
     public static final int DRIVE_SHIFT_A = 0;
     public static final int DRIVE_SHIFT_B = 1;
+    public static final int INTAKE_EXTEND_A = 2;
+    public static final int INTAKE_EXTEND_B = 3;
 }

@@ -22,6 +22,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import frc.robot.controls.DS;
 import frc.robot.Paths.AutoPaths;
 import frc.robot.Teleop.Drive;
+import frc.robot.subsystems.Intake;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -38,6 +39,7 @@ public class Robot extends TimedRobot {
 
   DS DS;
   public Drive drive;
+  Intake intake;
 
   AutoPaths auto;
 
@@ -55,6 +57,7 @@ public class Robot extends TimedRobot {
 
     DS = new DS();
     drive = new Drive();
+    intake = new Intake();
     try {
       auto = new AutoPaths();
     } catch (IOException | ParseException e) {
@@ -128,6 +131,19 @@ public class Robot extends TimedRobot {
 
   public void teleopControl() {
     drive.drive();
+  }
+
+  public void intakeControl() {
+    boolean extended = false;
+    if (DS.getIntExtend()) {
+      extended = !extended;
+    }
+
+    if (DS.getIntSpin()) {
+      intake.intake();
+    }
+
+    intake.extend(extended);
   }
 
 
