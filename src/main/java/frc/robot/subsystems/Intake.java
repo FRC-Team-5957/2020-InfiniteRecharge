@@ -31,6 +31,16 @@ public class Intake extends SubsystemBase {
         intakeMotor.set(ControlMode.PercentOutput, Constants.INTAKE_SPEED);
     }
 
+    public void extend() {
+            extendSol.set(Value.kForward);
+    }
+
+    public void retract() {
+        extendSol.set(Value.kReverse);
+}
+
+
+
     public void extend(final boolean isExtend) {
         if (isExtend == true) {
             extendSol.set(Value.kForward);

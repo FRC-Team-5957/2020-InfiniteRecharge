@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 
 import java.io.IOException;
 
-import org.json.simple.parser.ParseException;
 
 // import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,10 +19,10 @@ import edu.wpi.first.wpilibj.DriverStation;
 // import frc.robot.subsystems.ShiftingWestCoast;
 // import frc.robot.subsystems.ShiftingWestCoast.DriveMode;
 import frc.robot.controls.DS;
-import frc.robot.Paths.AutoPaths;
-import frc.robot.Teleop.Drive;
+// import frc.robot.Paths.AutoPaths;
+// import frc.robot.Teleop.Drive;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Magazine;
+// import frc.robot.subsystems.Magazine;
 import frc.robot.subsystems.ControlPanel;
 
 /**
@@ -40,12 +39,10 @@ public class Robot extends TimedRobot {
   // private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
   DS DS;
-  public Drive drive;
   Intake intake;
-  Magazine mag;
   ControlPanel contPanel;
 
-  AutoPaths auto;
+
 
   // private double m_LimelightSteerCommand = 0.0;
 
@@ -59,16 +56,6 @@ public class Robot extends TimedRobot {
     // m_chooser.addOption("My Auto", kCustomAuto);
     // SmartDashboard.putData("Auto choices", m_chooser);
 
-    DS = new DS();
-    drive = new Drive();
-    intake = new Intake();
-    contPanel = new ControlPanel();
-    try {
-      auto = new AutoPaths();
-    } catch (IOException | ParseException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
   }
 
   /**
@@ -104,8 +91,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    auto.autoMove("PathWeaver\\output\\Forward.wpilib.json");
+
    //helo
+   //HI
   }
 
   /**
@@ -135,78 +123,10 @@ public class Robot extends TimedRobot {
   }
 
   public void teleopControl() {
-    drive.drive();
-    intakeControl();
-    magazineControl();
-    controlPanelControl();
-  }
-
-  public void intakeControl() {
-    boolean extended = false;
-    if (DS.getIntExtend()) {
-      extended = !extended;
-    }
-
-    if (DS.getIntSpin()) {
-      intake.intake();
-    }
-
-    intake.extend(extended);
-  }
-
-  public void magazineControl() {
-    if (DS.getMagazine()) {
-      mag.advance();
-    }
-  }
-
-  public void controlPanelControl() {
-    boolean extended = false;
-    if (DS.getControlPanelExtend()) {
-      extended = !extended;
-    }
-
-    if (DS.getControlPanelSpin()) {
-      contPanel.panelSpin();
-    }
-
-    contPanel.extend(extended);
+  
   }
 
 
-  public void positionControl() {
-    //For moving the wheel to the right color
-    //TODO  move this to a file just for the wheel control, too much stuff in this folder
-    //https://docs.wpilib.org/en/latest/docs/software/wpilib-overview/2020-Game-Data.html
-    String gameData;
-    gameData = DriverStation.getInstance().getGameSpecificMessage();
-    if(gameData.length() > 0)
-{
-  switch (gameData.charAt(0))
-  {
-    case 'B' :
-      //Blue case code
-      //hi how are you 
-      break;
-    case 'G' :
-      //Green case code
-      break;
-    case 'R' :
-      //Red case code
-      break;
-    case 'Y' :
-      //Yellow case code
-      break;
-      //get that code doen girl
-    default :
-      //This is corrupt data
-      break;
-      //smile every day
-  }
-} else {
-  //Code for no data received yet
-}
-  }
 
 
 }

@@ -117,6 +117,26 @@ public class ShiftingWestCoast extends SubsystemBase  {
         }
     }
 
+    public void drive(DriveMode mode, double speedInput, double turnInput, int sensitivityLevel, boolean loweGear, boolean shift) {
+      double speed = loweGear ? speedInput * Constants.DRIVE_LOW : speedInput;
+      shift(shift); 
+      // double speed = speedInput * Constants.DRIVE_HIGH;
+      double rotation = turnInput * Constants.TURN_SPEED;
+      switch(mode) {
+        //helllllllllllllllllllllllllllllllllllllllllo
+        //Hi
+        //hey :)
+      case kArcade:
+          drive.arcadeDrive(speed, rotation);
+          break;
+      case kCurve:
+          drive.curvatureDrive(speed, rotation, true);
+          break;
+          //how are yoiu
+          //good :)
+      }
+  }
+
     public enum DriveMode {
         kArcade, kCurve;
     }
