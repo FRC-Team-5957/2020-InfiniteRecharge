@@ -29,9 +29,9 @@ public class ControlPanel extends SubsystemBase {
 
     public void extend(boolean isExtend) {
         if (isExtend == true) {
-            wheelExtender.set(value.kForward);
+            wheelExtender.set(Value.kForward);
         } else if (isExtend == false) {
-            wheelExtender.set(value.kReverse);
+            wheelExtender.set(Value.kReverse);
         }
     }
 

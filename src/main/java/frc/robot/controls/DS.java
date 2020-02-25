@@ -1,13 +1,12 @@
 package frc.robot.controls;
 
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.Joystick;
 
 // Custom file imports
 import frc.robot.RobotMap;
 
 public class DS {
-    
-
     // Declare joysticks
     public static Joystick driver, operator;
     
@@ -66,7 +65,7 @@ public class DS {
     }
 
     public static void vibrate(Joystick j, double intensity) {
-        j.setRumble(GenericHID.kLeftRumble, intensity);
-        j.setRumble(GenericHID.kRightRumble, intensity);
+        j.setRumble(RumbleType.kLeftRumble, intensity);
+        j.setRumble(RumbleType.kRightRumble, intensity);
     }
 }
