@@ -6,6 +6,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "CodeLens (Launch) - TestingCode",
+      "request": "launch",
+      "mainClass": "frc.robot.TestingCode",
+      "projectName": "2020-InfiniteRecharge"
+    },
+    {
+      "type": "java",
       "name": "CodeLens (Launch) - AutoPaths",
       "request": "launch",
       "mainClass": "frc.robot.Paths.AutoPaths",

@@ -18,10 +18,12 @@ import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.subsystems.ShiftingWestCoast;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Scanner;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -35,6 +37,7 @@ public class AutoPaths {
 
   private ShiftingWestCoast drive;
   private Trajectory trajectory;
+  private JSONObject jo;
   DifferentialDriveKinematics kDriveKinematics;
 
   public AutoPaths() throws FileNotFoundException, IOException, ParseException {
@@ -44,7 +47,8 @@ public class AutoPaths {
     Object obj = new JSONParser().parse(new FileReader("PathWeaver\\pathweaver.json"));
 
     // typecasting obj to JSONObject
-    JSONObject jo = (JSONObject) obj;
+    jo = (JSONObject) obj;
+
 
 
     //everything is in meters
@@ -74,7 +78,25 @@ public class AutoPaths {
 
   }
 
+
     
+  public void autoPathGroup(String groupPath){
+    File file = new File(groupPath);
+    try {
+      Scanner scanner = new Scanner(file);
+      while (scanner.hasNextLine()) {
+        String line = scanner.nextLine();
+        System.out.println(line);
+        String pathPath = "PathWeaver\\output\\" + line + ".wpilib.json" ;
+        System.out.println(pathPath);
+      }
+      scanner.close();
+    } catch (FileNotFoundException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+
 
     public Trajectory getTrajectory(String trajectoryJSON ){
 try {
