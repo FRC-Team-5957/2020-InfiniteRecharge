@@ -27,12 +27,13 @@ public class ControlPanel extends SubsystemBase {
         wheelExtender = new DoubleSolenoid(RobotMap.CONTPANE_EXTEND_A, RobotMap.CONTPANE_EXTEND_B);
     }
 
-    public void extend(boolean isExtend) {
-        if (isExtend == true) {
-            wheelExtender.set(Value.kForward);
-        } else if (isExtend == false) {
-            wheelExtender.set(Value.kReverse);
-        }
+
+    public void extend() {
+        wheelExtender.set(Value.kForward);
+}
+
+    public void retract() {
+        wheelExtender.set(Value.kReverse);
     }
 
     public void panelSpin() {
