@@ -3,25 +3,27 @@ package frc.robot.subsystems;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
 
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import com.ctre.phoenix.motorcontrol.ControlMode;
 
 public class Magazine extends SubsystemBase {
-    TalonSRX magBot, magTop;
+    CANSparkMax magBot, magTop;
 
     public Magazine() {
         initMotors();
     }
 
     public void initMotors() {
-        magBot = new TalonSRX(RobotMap.MAGBOT_BELT);
-        magTop = new TalonSRX(RobotMap.MAGTOP_BELT);
+
+        magBot = new CANSparkMax(RobotMap.MAGBOT_BELT, MotorType.kBrushless);
+        magTop = new CANSparkMax(RobotMap.MAGTOP_BELT, MotorType.kBrushless);
     }
 
     public void advance() {
-        magBot.set(ControlMode.PercentOutput, Constants.INTAKE_SPEED);
-        magTop.set(ControlMode.PercentOutput, Constants.INTAKE_SPEED);
+        magBot.set(Constants.INTAKE_SPEED);
+        magTop.set(Constants.INTAKE_SPEED);
     }
     //Add in pneumatic pistons 
 }

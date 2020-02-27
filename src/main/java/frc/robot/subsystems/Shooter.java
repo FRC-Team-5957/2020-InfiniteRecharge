@@ -8,10 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMax.IdleMode;
-import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
@@ -20,8 +17,7 @@ import frc.robot.RobotMap;
 public class Shooter extends SubsystemBase {
 
 
-  private CANSparkMax shooter;
-  private CANEncoder encoder;
+  private TalonSRX shooter;
   /**
    * Creates a new Shooter.
    */
@@ -30,20 +26,15 @@ public class Shooter extends SubsystemBase {
   }
 
   private void initMotor() {
-    shooter = new CANSparkMax(RobotMap.SHOOTER_ID, MotorType.kBrushless);
-    shooter.setIdleMode(IdleMode.kBrake);
+    shooter = new TalonSRX(RobotMap.SHOOTER_ID);
   }
 
   public void shoot() {
-    shooter.set(Constants.SHOOT_SPEED);
+    shooter.set(ControlMode.PercentOutput, Constants.SHOOT_SPEED);
   }
 
   public void idle() {
-    shooter.set(Constants.IDLE_SPEED);
-  }
-
-  public double getVelocity() {
-    return encoder.getVelocity();
+    shooter.set(ControlMode.PercentOutput, Constants.IDLE_SPEED);
   }
 
   @Override
