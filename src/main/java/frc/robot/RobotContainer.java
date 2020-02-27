@@ -11,10 +11,13 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.commands.ExampleCommand;
 import frc.robot.commands.IntakeExtend;
+import frc.robot.commands.MagazineAdvance;
 import frc.robot.controls.Controls;
 import frc.robot.controls.DS;
+import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Magazine;
 import frc.robot.subsystems.ShiftingWestCoast;
 import frc.robot.subsystems.ShiftingWestCoast.DriveMode;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -33,6 +36,8 @@ public class RobotContainer {
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
   private ShiftingWestCoast drive = new ShiftingWestCoast();
   private Intake intake = new Intake();
+  private Magazine magazine = new Magazine();
+  private ControlPanel controlPanel = new ControlPanel();
 
   private final ExampleCommand m_autoCommand = new ExampleCommand(m_exampleSubsystem);
 
@@ -51,6 +56,8 @@ public class RobotContainer {
         DS.getLowGear(), 
         DS.getHighGear()),
       drive);
+
+    
   }
 
   /**
@@ -60,11 +67,24 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    new JoystickButton(DS.driver, Controls.INTAKE_INTAKE)
+    new JoystickButton(DS.driver, Controls.INTAKE_SLIDE)
     .toggleWhenPressed(new IntakeExtend(intake));
-  }
 
+    new JoystickButton(DS.driver, Controls.INTAKE_INTAKE)
+    .whenHeld(new IntakeExtend(intake));
+  
 
+  new JoystickButton(DS.operator, Controls.MAGAZINE)
+    .whenHeld(new MagazineAdvance(magazine));
+
+    new JoystickButton(DS.operator, Controls.CONTPANE_UP)
+    .toggleWhenPressed(new IntakeExtend(intake));
+
+    new JoystickButton(DS.operator, Controls.MAGAZINE)
+    .whenHeld(new MagazineAdvance(magazine));
+  
+
+}
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
