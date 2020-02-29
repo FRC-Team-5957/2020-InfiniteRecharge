@@ -9,7 +9,9 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
@@ -17,7 +19,8 @@ import frc.robot.RobotMap;
 public class Shooter extends SubsystemBase {
 
 
-  private TalonSRX shooter;
+  private WPI_TalonSRX shooter;
+  private Encoder encoder;
   /**
    * Creates a new Shooter.
    */
@@ -26,11 +29,19 @@ public class Shooter extends SubsystemBase {
   }
 
   private void initMotor() {
-    shooter = new TalonSRX(RobotMap.SHOOTER_ID);
+    shooter = new WPI_TalonSRX(RobotMap.SHOOTER_ID);
+  }
+  private void initEcoder(){
+      encoder = new Encoder(2, 3);
+      encoder.setDistancePerPulse(2*Math.PI/Constants.FLY_WHEEL_ENCODER_COUNT);
   }
 
   public void shoot() {
     shooter.set(ControlMode.PercentOutput, Constants.SHOOT_SPEED);
+  }
+
+  public void shoot(double velocity) {
+    shooter.set(ControlMode.Velocity, velocity/Constants.FLY_WHEEL_RADIUS);
   }
 
   public void idle() {
