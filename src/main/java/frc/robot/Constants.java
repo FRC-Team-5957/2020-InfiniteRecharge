@@ -4,6 +4,9 @@ public class Constants {
     // List of constant values to use in place of raw values;
     // use these instead of exact values to keep changes consistent
 
+    //(multiplying by 0.0254 converts inches to meters)
+    public static final double INCHES_TO_METER = 0.0254;
+
     // Drive Constants
     public static final double RAMP_RATE = 0.25;
 
@@ -13,15 +16,15 @@ public class Constants {
     public static final double  TURN_SPEED  = 0.55;
 
 
-    //wheel diameter in meter (multiplying by 0.0254 converts inches to meters)
-    public static final double  Wheel_Diameter  = 8 * 0.0254;
+    //wheel diameter in meter 
+    public static final double  Wheel_Diameter  = 8 * INCHES_TO_METER;
     static final double     DRIVE_LOW_GEAR_REDUCTION    = (40/12)*(60/27)*(64/20) ; 
     static final double     DRIVE_HIGH_GEAR_REDUCTION    = (40/12)*(44/40)*(64/20) ;
 
     //Encoder Constants
-    public static final int     countsPerRev    = 4096;
-    public static final double  distancePerRev  = Wheel_Diameter*Math.PI;
-    public static final double  countsPerMeter  = (countsPerRev * DRIVE_LOW_GEAR_REDUCTION) /(distancePerRev);
+    public static final int     countsPerRev    = 4096; 
+    public static final double  CIRCUMFERENCE  = Wheel_Diameter*Math.PI;
+    public static final double  countsPerMeter  = (countsPerRev * DRIVE_LOW_GEAR_REDUCTION) /(CIRCUMFERENCE );
 
 
     //Feedforward/Feedback Gains
@@ -41,7 +44,9 @@ public class Constants {
 
     //shooter constansts
 	public static final double SHOOT_SPEED = 1.0;
-	public static final double IDLE_SPEED = 0;
+    public static final double IDLE_SPEED = 0;
+    public static final double FLY_WHEEL_ENCODER_COUNT = 1116;
+    public static final double FLY_WHEEL_RADIUS = 0 * INCHES_TO_METER; 
 
     //intake constants
     public static final double INTAKE_SPEED = 0.5;
@@ -52,4 +57,8 @@ public class Constants {
 
     //control panel constants
     public static final double CONTPANE_SPEED = 0.5;
+
+    //limelight constants
+    public static final double LIMELIGHT_MOUNTING_HEIGHT = 0;
+    public static final double LIMELIGHT_MOUNTING_ANGLE = 0;
 }
