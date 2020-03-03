@@ -6,16 +6,19 @@ import frc.robot.controls.Controls;
 import frc.robot.controls.DS;
 import frc.robot.subsystems.ShiftingWestCoast;
 import frc.robot.subsystems.ShiftingWestCoast.DriveMode;
+import frc.robot.subsystems.Limelight;
 
 
 /**
- * For driving in tele-op no
+ * For driving in tele-op no yes
  */
 public class Drive {
    ShiftingWestCoast drive;
+   Limelight ll;
 
     public Drive(){
         drive = new ShiftingWestCoast();
+        ll = new Limelight();
     }
 
     public void drive() {
@@ -26,7 +29,11 @@ public class Drive {
         double turnInput = DS.getTurn();
         boolean highGear = DS.getHighGear();
     
-        drive.drive(DriveMode.kCurve, speedInput, turnInput, Controls.SENSITIVITY);
+        if (DS.getLimelightStraigten()) {
+            drive.drive(DriveMode.kCurve, speedInput, ll.m_LimeLightSteerCommand, Controls.SENSITIVITY);
+        } else {
+            drive.drive(DriveMode.kCurve, speedInput, turnInput, Controls.SENSITIVITY);
+        }
         drive.shift(highGear);
 
 

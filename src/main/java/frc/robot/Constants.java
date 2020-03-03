@@ -15,6 +15,10 @@ public class Constants {
     
     public static final double  TURN_SPEED  = 0.55;
 
+    //These are based off of last years robot and probably need to be changed
+    public static final double STEER_K = 0.04;
+    public static final double DRIVE_K = 0.26;
+
 
     //wheel diameter in meter 
     public static final double  Wheel_Diameter  = 8 * INCHES_TO_METER;

@@ -113,7 +113,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void teleopPeriodic() {
-    teleopControl();
+    win(); // Actually just teleopControl()
   }
 
   /**
@@ -134,7 +134,7 @@ public class Robot extends TimedRobot {
 
   }
 
-  public void teleopControl() {
+  public void win() {
     drive.drive();
     intakeControl();
     magazineControl();
@@ -157,6 +157,11 @@ public class Robot extends TimedRobot {
   public void magazineControl() {
     if (DS.getMagazine()) {
       mag.advance();
+    }
+    if (DS.getMagThing()) {
+      mag.something(true);
+    } else {
+      mag.something(false);
     }
   }
 

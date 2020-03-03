@@ -13,6 +13,7 @@ import frc.robot.Constants;
 
 public class Limelight extends SubsystemBase {
   private double tv, tx, ty;
+  public double m_LimeLightSteerCommand = tx * Constants.STEER_K;
   /**
    * Creates a new Limelight.
    */
@@ -20,6 +21,10 @@ public class Limelight extends SubsystemBase {
 
 
 
+  }
+
+  public enum LEDState {
+    on, off, blink
   }
 
   public boolean isValidTarget(){
@@ -37,7 +42,24 @@ public class Limelight extends SubsystemBase {
     return ty;
   }
 
+  public void setLEDState(String ledState) {
+    switch (ledState) {
+     case "on" :
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+        break;
+      case "off" :         
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
+        break;
+      case "blink" :
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(2);
+        break;
+     default:
+        NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
+    }
+  }
+
   public double getDistance(double targetHeight, double targetAngle){
+    //Target height can be a constant and target angle should be replaced by ty (?)
     return (targetHeight-Constants.LIMELIGHT_MOUNTING_HEIGHT) / Math.tan(Constants.LIMELIGHT_MOUNTING_ANGLE+targetAngle);
   }
 

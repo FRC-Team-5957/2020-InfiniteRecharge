@@ -46,4 +46,5 @@ public class Controls {
         public static final int WINCH = 0;
         public static final int CONTPANE_UP = 0;
         public static final int CONTPANE_SPIN = 0;
+        public static final int MAG_THING = 0;
 }

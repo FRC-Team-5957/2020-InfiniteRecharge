@@ -32,6 +32,10 @@ public class DS {
     public static boolean getLowGear() {
         return driver.getRawButton(Controls.DRIVE_SLOW);
     }
+    
+    public static boolean getLimelightStraigten() {
+        return driver.getRawButton(Controls.LIMELIGHT_BUTTON);
+    }
 
     //Operator controls
     public static boolean getShoot() {
@@ -56,6 +60,10 @@ public class DS {
 
     public static boolean getControlPanelSpin() {
         return operator.getRawButton(Controls.CONTPANE_SPIN);
+    }
+
+    public static boolean getMagThing() {
+        return operator.getRawButton(Controls.MAG_THING);
     }
 
     // Utils
