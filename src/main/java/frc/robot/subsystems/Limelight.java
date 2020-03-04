@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class Limelight extends SubsystemBase {
-  private double tv, tx, ty;
+  private double tv, tx, ty, ts;
   public double m_LimeLightSteerCommand = tx * Constants.STEER_K;
   /**
    * Creates a new Limelight.
@@ -60,7 +60,12 @@ public class Limelight extends SubsystemBase {
 
   public double getDistance(double targetHeight, double targetAngle){
     //Target height can be a constant and target angle should be replaced by ty (?)
-    return (targetHeight-Constants.LIMELIGHT_MOUNTING_HEIGHT) / Math.tan(Constants.LIMELIGHT_MOUNTING_ANGLE+targetAngle);
+    return (Constants.POWERPPORT_HEIGHT-Constants.LIMELIGHT_MOUNTING_HEIGHT) / Math.tan(Constants.LIMELIGHT_MOUNTING_ANGLE+ty);
+  }
+
+  public double getAngle() {
+    ts = NetworkTableInstance.getDefault().getTable("limelight").getEntry("ts").getDouble(0);
+    return ts;
   }
 
   @Override

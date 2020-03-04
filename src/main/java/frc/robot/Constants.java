@@ -53,16 +53,19 @@ public class Constants {
     public static final double FLY_WHEEL_RADIUS = 0 * INCHES_TO_METER; 
 
     //intake constants
-    public static final double INTAKE_SPEED = 0.5;
+    public static final double INTAKE_SPEED = 0.25;
 
     //climb constants
-    public static final double SLIDE_SPEED = 0.5;
-    public static final double WINCH_SPEED = 0.5;
+    public static final double SLIDE_SPEED = 0.25;
+    public static final double WINCH_SPEED = 0.25;
 
     //control panel constants
-    public static final double CONTPANE_SPEED = 0.5;
+    public static final double CONTPANE_SPEED = 0.25;
 
     //limelight constants
     public static final double LIMELIGHT_MOUNTING_HEIGHT = 0;
     public static final double LIMELIGHT_MOUNTING_ANGLE = 0;
+
+    //field constants
+    public static final double POWERPPORT_HEIGHT = 98.25 * 0.0254;
 }
