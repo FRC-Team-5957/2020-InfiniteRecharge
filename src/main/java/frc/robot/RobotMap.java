@@ -14,14 +14,14 @@ public class RobotMap {
     public static final int DRIVE_LEFT_SLAVE = 4;   
 
     // Intake mc ID
-    public static final int INTAKE_ID = 6;
+    public static final int INTAKE_ID = 8;
 
     // Magazine mc IDs
-    public static final int MAGTOP_BELT = 7;
-    public static final int MAGBOT_BELT = 8;
+    public static final int MAGTOP_BELT = 5;
+    public static final int MAGBOT_BELT = 6;
 
     // Shooter Id
-    public static final int SHOOTER_ID = 5;  
+    public static final int SHOOTER_ID = 7;  
 
     // Control Panel mc ID
     public static final int CONTPANE_SPIN = 9;

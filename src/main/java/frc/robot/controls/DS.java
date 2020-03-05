@@ -43,11 +43,36 @@ public class DS {
     }
 
     public static boolean getIntExtend() {
-        return operator.getRawButtonPressed(Controls.INTAKE_SLIDE);
+        // return operator.getRawButtonPressed(Controls.INTAKE_SLIDE);
+        return false;
     }
 
-    public static boolean getIntSpin() {
-        return operator.getRawButton(Controls.INTAKE_INTAKE);
+    public static boolean getIntDown() {
+     if (operator.getPOV() == 0) {
+         return true;
+     } else {
+         return false;
+     }
+    }
+
+    public static boolean getIntUp() {
+        if (operator.getPOV() == 180) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean getContPaneSpin() {
+        if (operator.getPOV() == 270) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static double getIntSpin() {
+        return getAxis(Controls.INTAKE_INTAKE, operator);
     }
 
     public static boolean getMagazine() {

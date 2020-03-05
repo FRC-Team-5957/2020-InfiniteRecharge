@@ -37,14 +37,15 @@ public class Controls {
 
     // Operator controls
     // TODO Leave this empty for now (Sarah and I will fill this out on our own)
-        public static final int INTAKE_SLIDE = 0;
-        public static final int INTAKE_INTAKE = 0;
-        public static final int SHOOT = 0;
-        public static final int LOAD_BALL = 0;
-        public static final int MAGAZINE = 0;
+        public static final int INTAKE_UP = 5;
+        public static final int INTAKE_DOWN = 0;
+        public static final int INTAKE_INTAKE = 3;
+        public static final int SHOOT = 6;
+        public static final int LOAD_BALL = 3;
+        public static final int MAGAZINE = 1;
         public static final int SLIDE_UP = 0;
         public static final int WINCH = 0;
-        public static final int CONTPANE_UP = 0;
-        public static final int CONTPANE_SPIN = 0;
+        public static final int CONTPANE_UP = 5;
+        public static final int CONTPANE_SPIN = 7;
         public static final int MAG_THING = 0;
 }
