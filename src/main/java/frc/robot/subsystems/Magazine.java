@@ -24,7 +24,7 @@ public class Magazine extends SubsystemBase {
     public void initMotors() {
         magBot = new CANSparkMax(RobotMap.MAGBOT_BELT, MotorType.kBrushless);
         magTop = new CANSparkMax(RobotMap.MAGTOP_BELT, MotorType.kBrushless);
-        magTop.follow(magBot);
+        magTop.follow(magBot, true);
     }
 
     public void initSolenoid() {

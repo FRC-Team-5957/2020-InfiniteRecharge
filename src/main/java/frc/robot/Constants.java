@@ -33,12 +33,12 @@ public class Constants {
 
     //Feedforward/Feedback Gains
     // TODO USE The Robot Characterization Toolsuite to obtaining these values
-    public static final double ksVolts = 0;
-    public static final double kvVoltSecondsPerMeter = 0;
-    public static final double kaVoltSecondsSquaredPerMeter = 0;
+    public static final double ksVolts = 0.208;
+    public static final double kvVoltSecondsPerMeter = 0.201;
+    public static final double kaVoltSecondsSquaredPerMeter = 0.0208;
 
     // Example value only - as above, this must be tuned for your drive!
-    public static final double kPDriveVel = 0;
+    public static final double kPDriveVel = 0.359;
 
     // Reasonable baseline values for a RAMSETE follower in units of meters and seconds
         //for more information on tuning these values (if it is required), see 

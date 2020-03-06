@@ -51,5 +51,5 @@ public class Controls {
         public static final int WINCH = 0;
         public static final int CONTPANE_UP = 5;
         public static final int CONTPANE_SPIN = 7;
-        public static final int MAG_THING = 9;
+        public static final int MAG_THING = 3;
 }

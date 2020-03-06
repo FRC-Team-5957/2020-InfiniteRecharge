@@ -40,7 +40,7 @@ public class ShiftingWestCoast extends SubsystemBase  {
      // Odometry class for tracking robot pose
     private DifferentialDriveOdometry m_odometry;
 
-    
+    //153,600/6,480
 
 
     public ShiftingWestCoast() {
@@ -53,8 +53,8 @@ public class ShiftingWestCoast extends SubsystemBase  {
     @Override
     public void periodic() {
       // Update the odometry in the periodic block
-      // m_odometry.update(Rotation2d.fromDegrees(getHeading()), leftEncoder.getPosition(),
-      // rightEncoder.getPosition());
+      m_odometry.update(Rotation2d.fromDegrees(getHeading()), leftEncoder.getPosition(),
+      rightEncoder.getPosition());
     }
 
     public void initDrive() {
@@ -75,8 +75,8 @@ public class ShiftingWestCoast extends SubsystemBase  {
 
 
         
-        // rightEncoder.setPositionConversionFactor(Constants.countsPerMeter);
-        // leftEncoder.setPositionConversionFactor(Constants.countsPerMeter);
+        rightEncoder.setPositionConversionFactor(Constants.countsPerMeter);
+        leftEncoder.setPositionConversionFactor(Constants.countsPerMeter);
         
 
 
@@ -94,9 +94,9 @@ public class ShiftingWestCoast extends SubsystemBase  {
 
     }
 
-    // public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-    //   return new DifferentialDriveWheelSpeeds(rightEncoder.getVelocity(), rightEncoder.getVelocity());
-    // }
+    public DifferentialDriveWheelSpeeds getWheelSpeeds() {
+      return new DifferentialDriveWheelSpeeds(rightEncoder.getVelocity(), rightEncoder.getVelocity());
+    }
 
 
     
@@ -174,23 +174,23 @@ public class ShiftingWestCoast extends SubsystemBase  {
    *
    * @return The pose.
    */
-  // public Pose2d getPose() {
-  //   return m_odometry.getPoseMeters();
-  // }
+  public Pose2d getPose() {
+    return m_odometry.getPoseMeters();
+  }
    /**
    * Controls the left and right sides of the drive directly with voltages.
    *
    * @param leftVolts  the commanded left output
    * @param rightVolts the commanded right output
    */
-  // public void tankDriveVolts(double leftVolts, double rightVolts) {
-  //   leftMaster.setVoltage(leftVolts);
-  //   rightMaster.setVoltage(-rightVolts);
-  //   drive.feed();
-  //   // "It is very important to use the setVoltage() method rather than the ordinary set() method,
-  //   //  as this will automatically compensate for battery “voltage sag” during operation. 
-  //   //  Since our feedforward voltages are physically-meaningful (as they are based on measured characterization data), 
-  //   //  this is essential to ensuring their accuracy."
-  // }
+  public void tankDriveVolts(double leftVolts, double rightVolts) {
+    leftMaster.setVoltage(leftVolts);
+    rightMaster.setVoltage(-rightVolts);
+    drive.feed();
+    // "It is very important to use the setVoltage() method rather than the ordinary set() method,
+    //  as this will automatically compensate for battery “voltage sag” during operation. 
+    //  Since our feedforward voltages are physically-meaningful (as they are based on measured characterization data), 
+    //  this is essential to ensuring their accuracy."
+  }
 
 }

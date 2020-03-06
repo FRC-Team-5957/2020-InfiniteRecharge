@@ -74,11 +74,11 @@ public class DS {
         }
     }
 
-    public double getIntSpin() {
+    public static double getIntSpin() {
         return getAxis(Controls.INTAKE_INTAKE, operator);
     }
 
-    public boolean getMagazine() {
+    public static boolean getMagazine() {
         return operator.getRawButton(Controls.MAGAZINE);
     }
 
@@ -90,7 +90,7 @@ public class DS {
         return operator.getRawButton(Controls.CONTPANE_SPIN);
     }
 
-    public boolean getMagThing() {
+    public static boolean getMagThing() {
         return operator.getRawButton(Controls.MAG_THING);
     }
 

@@ -16,16 +16,18 @@ import org.json.simple.parser.ParseException;
 // import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 // import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.DriverStation;
-
+import frc.robot.controls.Controls;
 // import frc.robot.subsystems.ShiftingWestCoast;
 // import frc.robot.subsystems.ShiftingWestCoast.DriveMode;
 import frc.robot.controls.DS;
-// import frc.robot.Paths.AutoPaths;
-import frc.robot.Teleop.Drive;
+import frc.robot.Paths.AutoPaths;
+// import frc.robot.Teleop.Drive;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Magazine;
+import frc.robot.subsystems.ShiftingWestCoast;
 // import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.ShiftingWestCoast.DriveMode;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -40,14 +42,15 @@ public class Robot extends TimedRobot {
   // private String m_autoSelected;
   // private final SendableChooser<String> m_chooser = new SendableChooser<>();
 
-  DS DS;
-  public Drive drive;
+  public ShiftingWestCoast drive;
   Intake intake;
   Magazine mag;
   Shooter shooter;
+
+  boolean stop;
   // ControlPanel contPanel;
 
-  // AutoPaths auto;
+  AutoPaths auto;
 
   // private double m_LimelightSteerCommand = 0.0;
 
@@ -61,18 +64,20 @@ public class Robot extends TimedRobot {
     // m_chooser.addOption("My Auto", kCustomAuto);
     // SmartDashboard.putData("Auto choices", m_chooser);
 
-    DS = new DS();
-    drive = new Drive();
+    DS ds = new DS();
+
+    drive = new ShiftingWestCoast();
     shooter = new Shooter();
     intake = new Intake();
     mag = new Magazine();
+    stop = false;
     // contPanel = new ControlPanel();
-    // try {
-    //   auto = new AutoPaths();
-    // } catch (IOException | ParseException e) {
-    //   // TODO Auto-generated catch block
-    //   e.printStackTrace();
-    // }
+    try {
+      auto = new AutoPaths(drive);
+    } catch (IOException | ParseException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 
   /**
@@ -108,7 +113,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    // auto.autoMove("PathWeaver\\output\\Forward.wpilib.json");
+    auto.autoMove("PathWeaver\\output\\Forward.wpilib.json");
    //helo
   }
 
@@ -138,12 +143,37 @@ public class Robot extends TimedRobot {
 
   }
 
+  @Override
+  public void disabledPeriodic() {
+    
+  }
+
   public void win() {
-    drive.drive();
+    drive();
     intakeControl();
     magazineControl();
     controlPanelControl();
     shooterControl();
+  }
+
+  public void drive() {
+
+    DS.getGTASpeed();
+   
+    double speedInput = DS.getLowGear() ? DS.getGTASpeed() * Constants.DRIVE_LOW : DS.getGTASpeed();
+    double turnInput = DS.getTurn();
+    boolean highGear = DS.getHighGear();
+
+    if (DS.getLimelightStraigten()) {
+        // drive.drive(DriveMode.kCurve, speedInput, ll.m_LimeLightSteerCommand, Controls.SENSITIVITY);
+    } else {
+        drive.drive(DriveMode.kCurve, speedInput, turnInput, Controls.SENSITIVITY);
+    }
+
+    drive.shift(!highGear);
+
+
+
   }
 
   public void shooterControl(){
@@ -177,15 +207,20 @@ public class Robot extends TimedRobot {
   }
 
   public void magazineControl() {
-    if (DS.getMagazine()) {
+   
+
+    if (DS.getMagThing()) {
+      mag.extend();
+      stop = true;
+    } else {
+      mag.retract(); 
+      stop = false;
+    }
+
+    if (DS.getMagazine() && !stop) {
       mag.advance();
     } else {
       mag.stopoAdvance();
-    }
-    if (DS.getMagThing()) {
-      mag.extend();
-    } else {
-      mag.retract();
     }
   }
 
