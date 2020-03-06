@@ -4,6 +4,7 @@ import frc.robot.Constants;
 import frc.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -11,7 +12,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Intake extends SubsystemBase {
-    TalonSRX intakeMotor;
+    VictorSPX intakeMotor;
     DoubleSolenoid extendSol;
 
     public Intake() {
@@ -20,7 +21,7 @@ public class Intake extends SubsystemBase {
     }
 
     public void initMotor() {
-        intakeMotor = new TalonSRX(RobotMap.INTAKE_ID);
+        intakeMotor = new VictorSPX(RobotMap.INTAKE_ID);
     }
 
     public void initExtend() {

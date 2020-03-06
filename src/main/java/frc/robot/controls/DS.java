@@ -71,7 +71,7 @@ public class DS {
         }
     }
 
-    public static double getIntSpin() {
+    public double getIntSpin() {
         return getAxis(Controls.INTAKE_INTAKE, operator);
     }
 

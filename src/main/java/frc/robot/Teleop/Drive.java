@@ -6,7 +6,7 @@ import frc.robot.controls.Controls;
 import frc.robot.controls.DS;
 import frc.robot.subsystems.ShiftingWestCoast;
 import frc.robot.subsystems.ShiftingWestCoast.DriveMode;
-import frc.robot.subsystems.Limelight;
+// import frc.robot.subsystems.Limelight;
 
 
 /**
@@ -14,7 +14,7 @@ import frc.robot.subsystems.Limelight;
  */
 public class Drive {
    ShiftingWestCoast drive;
-   Limelight ll;
+//    Limelight ll;
 
     public Drive(){
         drive = new ShiftingWestCoast();
@@ -30,7 +30,7 @@ public class Drive {
         boolean highGear = DS.getHighGear();
     
         if (DS.getLimelightStraigten()) {
-            drive.drive(DriveMode.kCurve, speedInput, ll.m_LimeLightSteerCommand, Controls.SENSITIVITY);
+            // drive.drive(DriveMode.kCurve, speedInput, ll.m_LimeLightSteerCommand, Controls.SENSITIVITY);
         } else {
             drive.drive(DriveMode.kCurve, speedInput, turnInput, Controls.SENSITIVITY);
         }

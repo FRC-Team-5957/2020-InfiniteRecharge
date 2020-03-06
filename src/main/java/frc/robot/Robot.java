@@ -20,11 +20,11 @@ import edu.wpi.first.wpilibj.DriverStation;
 // import frc.robot.subsystems.ShiftingWestCoast;
 // import frc.robot.subsystems.ShiftingWestCoast.DriveMode;
 import frc.robot.controls.DS;
-import frc.robot.Paths.AutoPaths;
+// import frc.robot.Paths.AutoPaths;
 import frc.robot.Teleop.Drive;
 import frc.robot.subsystems.Intake;
-import frc.robot.subsystems.Magazine;
-import frc.robot.subsystems.ControlPanel;
+// import frc.robot.subsystems.Magazine;
+// import frc.robot.subsystems.ControlPanel;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -42,10 +42,10 @@ public class Robot extends TimedRobot {
   DS DS;
   public Drive drive;
   Intake intake;
-  Magazine mag;
-  ControlPanel contPanel;
+  // Magazine mag;
+  // ControlPanel contPanel;
 
-  AutoPaths auto;
+  // AutoPaths auto;
 
   // private double m_LimelightSteerCommand = 0.0;
 
@@ -62,13 +62,13 @@ public class Robot extends TimedRobot {
     DS = new DS();
     drive = new Drive();
     intake = new Intake();
-    contPanel = new ControlPanel();
-    try {
-      auto = new AutoPaths();
-    } catch (IOException | ParseException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    // contPanel = new ControlPanel();
+    // try {
+    //   auto = new AutoPaths();
+    // } catch (IOException | ParseException e) {
+    //   // TODO Auto-generated catch block
+    //   e.printStackTrace();
+    // }
   }
 
   /**
@@ -104,7 +104,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    auto.autoMove("PathWeaver\\output\\Forward.wpilib.json");
+    // auto.autoMove("PathWeaver\\output\\Forward.wpilib.json");
    //helo
   }
 
@@ -147,7 +147,7 @@ public class Robot extends TimedRobot {
       extended = !extended;
     }
 
-    if (DS.getIntSpin()) {
+    if (DS.getIntSpin() != 0) {
       intake.intake();
     }
 
@@ -155,27 +155,27 @@ public class Robot extends TimedRobot {
   }
 
   public void magazineControl() {
-    if (DS.getMagazine()) {
-      mag.advance();
-    }
-    if (DS.getMagThing()) {
-      mag.something(true);
-    } else {
-      mag.something(false);
-    }
+    // if (DS.getMagazine()) {
+    //   mag.advance();
+    // }
+    // if (DS.getMagThing()) {
+    //   mag.something(true);
+    // } else {
+    //   mag.something(false);
+    // }
   }
 
   public void controlPanelControl() {
-    boolean extended = false;
-    if (DS.getControlPanelExtend()) {
-      extended = !extended;
-    }
+    // boolean extended = false;
+    // if (DS.getControlPanelExtend()) {
+    //   extended = !extended;
+    // }
 
-    if (DS.getControlPanelSpin()) {
-      contPanel.panelSpin();
-    }
+    // if (DS.getControlPanelSpin()) {
+    //   contPanel.panelSpin();
+    // }
 
-    contPanel.extend(extended);
+    // contPanel.extend(extended);
   }
 
 
