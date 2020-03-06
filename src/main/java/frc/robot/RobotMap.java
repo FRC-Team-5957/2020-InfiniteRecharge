@@ -30,11 +30,11 @@ public class RobotMap {
     public static final int PCM_ID = 10;
     public static final int DRIVE_SHIFT_A = 0;
     public static final int DRIVE_SHIFT_B = 1;
-    public static final int INTAKE_EXTEND_A = 2;
-    public static final int INTAKE_EXTEND_B = 3;
-    public static final int CONTPANE_EXTEND_A = 4;
-    public static final int CONTPANE_EXTEND_B = 5;
-    public static final int MAG_SOMETHING_A = 6;
-    public static final int MAG_SOMETHING_B = 7;
+    public static final int INTAKE_EXTEND_A = 6;
+    public static final int INTAKE_EXTEND_B = 7;
+    public static final int CONTPANE_EXTEND_A = 2;
+    public static final int CONTPANE_EXTEND_B = 3;
+    public static final int MAG_SOMETHING_A = 4;
+    public static final int MAG_SOMETHING_B = 5;
     //THIS IS THE MAX AMOUNT OF SOLENOIDS THERE IS NO MORE SPACE ON THE PCM WE ARE NOT ADDING ANYMORE SOLENOIDS
 }

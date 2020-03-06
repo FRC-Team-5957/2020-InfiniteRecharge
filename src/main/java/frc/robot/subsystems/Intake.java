@@ -32,11 +32,23 @@ public class Intake extends SubsystemBase {
         intakeMotor.set(ControlMode.PercentOutput, Constants.INTAKE_SPEED);
     }
 
-    public void extend(final boolean isExtend) {
-        if (isExtend == true) {
-            extendSol.set(Value.kForward);
-        } else if (isExtend == false) {
-            extendSol.set(Value.kReverse);
-        }
+    public void stopoIntake() {
+        intakeMotor.set(ControlMode.PercentOutput, 0);
+    }
+
+    // public void extend(boolean isExtend) {
+    //     if (isExtend == true) {
+    //         extendSol.set(Value.kForward);
+    //     } else if (isExtend == false) {
+    //         extendSol.set(Value.kReverse);
+    //     }
+    // }
+
+    public void extend() {
+        extendSol.set(Value.kForward);
+    }
+
+    public void retract() {
+        extendSol.set(Value.kReverse);
     }
 }

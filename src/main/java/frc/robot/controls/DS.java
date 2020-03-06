@@ -42,9 +42,12 @@ public class DS {
         return operator.getRawButton(Controls.SHOOT);
     }
 
-    public static boolean getIntExtend() {
-        // return operator.getRawButtonPressed(Controls.INTAKE_SLIDE);
-        return false;
+    public boolean getIntExtend() {
+        return operator.getRawButtonPressed(Controls.INTAKE_DOWN);
+    }
+
+    public boolean getIntRetract() {
+        return operator.getRawButtonPressed(Controls.INTAKE_UP);
     }
 
     public static boolean getIntDown() {
@@ -75,7 +78,7 @@ public class DS {
         return getAxis(Controls.INTAKE_INTAKE, operator);
     }
 
-    public static boolean getMagazine() {
+    public boolean getMagazine() {
         return operator.getRawButton(Controls.MAGAZINE);
     }
 
@@ -87,7 +90,7 @@ public class DS {
         return operator.getRawButton(Controls.CONTPANE_SPIN);
     }
 
-    public static boolean getMagThing() {
+    public boolean getMagThing() {
         return operator.getRawButton(Controls.MAG_THING);
     }
 

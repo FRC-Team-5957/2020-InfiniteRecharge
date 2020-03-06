@@ -23,8 +23,9 @@ import frc.robot.controls.DS;
 // import frc.robot.Paths.AutoPaths;
 import frc.robot.Teleop.Drive;
 import frc.robot.subsystems.Intake;
-// import frc.robot.subsystems.Magazine;
+import frc.robot.subsystems.Magazine;
 // import frc.robot.subsystems.ControlPanel;
+import frc.robot.subsystems.Shooter;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -42,7 +43,8 @@ public class Robot extends TimedRobot {
   DS DS;
   public Drive drive;
   Intake intake;
-  // Magazine mag;
+  Magazine mag;
+  Shooter shooter;
   // ControlPanel contPanel;
 
   // AutoPaths auto;
@@ -61,7 +63,9 @@ public class Robot extends TimedRobot {
 
     DS = new DS();
     drive = new Drive();
+    shooter = new Shooter();
     intake = new Intake();
+    mag = new Magazine();
     // contPanel = new ControlPanel();
     // try {
     //   auto = new AutoPaths();
@@ -139,30 +143,50 @@ public class Robot extends TimedRobot {
     intakeControl();
     magazineControl();
     controlPanelControl();
+    shooterControl();
+  }
+
+  public void shooterControl(){
+    if(DS.getShoot()){
+      shooter.shoot();
+    }else{
+      shooter.idle();
+    }
   }
 
   public void intakeControl() {
-    boolean extended = false;
-    if (DS.getIntExtend()) {
-      extended = !extended;
-    }
+    // boolean extended = false;
+    // if (DS.getIntExtend()) {
+    //   extended = !extended;
+    // }
 
     if (DS.getIntSpin() != 0) {
       intake.intake();
+    } else {
+      intake.stopoIntake();
     }
 
-    intake.extend(extended);
+    if (DS.getIntDown()) {
+      intake.extend();
+    }
+    if (DS.getIntUp()) {
+      intake.retract();
+    }
+
+    // intake.extend(extended);
   }
 
   public void magazineControl() {
-    // if (DS.getMagazine()) {
-    //   mag.advance();
-    // }
-    // if (DS.getMagThing()) {
-    //   mag.something(true);
-    // } else {
-    //   mag.something(false);
-    // }
+    if (DS.getMagazine()) {
+      mag.advance();
+    } else {
+      mag.stopoAdvance();
+    }
+    if (DS.getMagThing()) {
+      mag.extend();
+    } else {
+      mag.retract();
+    }
   }
 
   public void controlPanelControl() {

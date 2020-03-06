@@ -47,13 +47,13 @@ public class Constants {
         public final static double kRamseteZeta = 0.7;
 
     //shooter constansts
-	public static final double SHOOT_SPEED = 1.0;
+	public static final double SHOOT_SPEED = -1.0;
     public static final double IDLE_SPEED = 0;
     public static final double FLY_WHEEL_ENCODER_COUNT = 1116;
     public static final double FLY_WHEEL_RADIUS = 0 * INCHES_TO_METER; 
 
     //intake constants
-    public static final double INTAKE_SPEED = 0.25;
+    public static final double INTAKE_SPEED = -0.35;
 
     //climb constants
     public static final double SLIDE_SPEED = 0.25;

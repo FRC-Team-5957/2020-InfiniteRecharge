@@ -31,7 +31,7 @@ public class ShiftingWestCoast extends SubsystemBase  {
     DifferentialDrive drive;
 
     
-    // private CANEncoder leftEncoder, rightEncoder;
+    private CANEncoder leftEncoder, rightEncoder;
 
     private static AHRS navx;
 
@@ -66,10 +66,12 @@ public class ShiftingWestCoast extends SubsystemBase  {
         leftMaster = new CANSparkMax(RobotMap.DRIVE_LEFT_MASTER, MotorType.kBrushless);
         leftSlave = new CANSparkMax(RobotMap.DRIVE_LEFT_SLAVE, MotorType.kBrushless);
 
+
+
         // Encoder setup
 
-        // rightEncoder = new CANEncoder(rightMaster, EncoderType.kQuadrature, Constants.countsPerRev);
-        // leftEncoder = new CANEncoder(leftMaster, EncoderType.kQuadrature, Constants.countsPerRev);
+        rightEncoder = new CANEncoder(rightMaster, EncoderType.kHallSensor, Constants.countsPerRev);
+        leftEncoder = new CANEncoder(leftMaster, EncoderType.kHallSensor, Constants.countsPerRev);
 
 
         

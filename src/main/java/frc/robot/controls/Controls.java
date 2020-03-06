@@ -10,6 +10,10 @@ public class Controls {
     *       (Y) button : 4
     *       left bumper : 5 
     *       right bumper : 6
+    *       back        : 7
+    *       start       : 8
+    *       left stick  : 9
+    *       right stick : 10   
     *   Axis :
     *       Left stick :
     *           X axis : 0 
@@ -47,5 +51,5 @@ public class Controls {
         public static final int WINCH = 0;
         public static final int CONTPANE_UP = 5;
         public static final int CONTPANE_SPIN = 7;
-        public static final int MAG_THING = 0;
+        public static final int MAG_THING = 9;
 }
