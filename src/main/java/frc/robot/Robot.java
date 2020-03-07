@@ -28,6 +28,7 @@ import frc.robot.subsystems.ShiftingWestCoast;
 // import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.ShiftingWestCoast.DriveMode;
+import frc.robot.subsystems.Limelight;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -46,6 +47,7 @@ public class Robot extends TimedRobot {
   Intake intake;
   Magazine mag;
   Shooter shooter;
+  Limelight ll;
 
   boolean stop;
   // ControlPanel contPanel;
@@ -70,6 +72,7 @@ public class Robot extends TimedRobot {
     shooter = new Shooter();
     intake = new Intake();
     mag = new Magazine();
+    ll = new Limelight();
     stop = false;
     // contPanel = new ControlPanel();
     try {
@@ -165,7 +168,7 @@ public class Robot extends TimedRobot {
     boolean highGear = DS.getHighGear();
 
     if (DS.getLimelightStraigten()) {
-        // drive.drive(DriveMode.kCurve, speedInput, ll.m_LimeLightSteerCommand, Controls.SENSITIVITY);
+        drive.drive(DriveMode.kCurve, speedInput, ll.getLLSteering(), Controls.SENSITIVITY);
     } else {
         drive.drive(DriveMode.kCurve, speedInput, turnInput, Controls.SENSITIVITY);
     }
