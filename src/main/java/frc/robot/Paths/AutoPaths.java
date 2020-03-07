@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj.trajectory.constraint.DifferentialDriveVoltageConstraint;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Constants;
 import frc.robot.subsystems.ShiftingWestCoast;
@@ -109,7 +110,7 @@ try {
   return trajectory;
     }
 
-    public void autoMove(String trajectoryJSON) {
+    public SequentialCommandGroup autoMove(String trajectoryJSON) {
       Trajectory trajectory = getTrajectory(trajectoryJSON);
       RamseteCommand ramseteCommand = new RamseteCommand(
         trajectory,
@@ -126,5 +127,7 @@ try {
         drive::tankDriveVolts,
         drive
     );
+
+    return ramseteCommand.andThen(() -> drive.tankDriveVolts(0, 0));
     }
 }
