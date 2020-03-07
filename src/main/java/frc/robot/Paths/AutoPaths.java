@@ -109,7 +109,7 @@ try {
   return trajectory;
     }
 
-    public Command autoMove(String trajectoryJSON) {
+    public void autoMove(String trajectoryJSON) {
       Trajectory trajectory = getTrajectory(trajectoryJSON);
       RamseteCommand ramseteCommand = new RamseteCommand(
         trajectory,
@@ -126,7 +126,5 @@ try {
         drive::tankDriveVolts,
         drive
     );
-
-    return ramseteCommand.andThen(() -> m_robotDrive.tankDriveVolts(0, 0));
     }
 }
