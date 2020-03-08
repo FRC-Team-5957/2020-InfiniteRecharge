@@ -46,15 +46,15 @@ public class Limelight extends SubsystemBase {
     return getHorizontalAngle() * Constants.STEER_K;
   }
 
-  public void setLEDState(String ledState) {
+  public void setLEDState(LEDState ledState) {
     switch (ledState) {
-     case "on" :
+     case on :
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
         break;
-      case "off" :         
+      case off :         
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
         break;
-      case "blink" :
+      case blink :
         NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(2);
         break;
      default:

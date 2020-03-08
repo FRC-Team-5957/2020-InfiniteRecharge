@@ -44,8 +44,17 @@ public class Shooter extends SubsystemBase {
     shooter.set(ControlMode.Velocity, velocity/Constants.FLY_WHEEL_RADIUS);
   }
 
+  public void lowShoot() {
+    shooter.set(ControlMode.Velocity, Constants.LOW_SHOOT_SPEED);
+  }
+
   public void idle() {
     shooter.set(ControlMode.PercentOutput, Constants.IDLE_SPEED);
+  }
+
+  public double getSpeed(){
+    return encoder.getRate();
+    // return 0;
   }
 
   @Override

@@ -8,6 +8,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
 import java.io.IOException;
@@ -28,6 +30,7 @@ import frc.robot.subsystems.Magazine;
 import frc.robot.subsystems.ShiftingWestCoast;
 // import frc.robot.subsystems.ControlPanel;
 import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Limelight.LEDState;
 import frc.robot.subsystems.ShiftingWestCoast.DriveMode;
 import frc.robot.subsystems.Limelight;
 
@@ -39,6 +42,7 @@ import frc.robot.subsystems.Limelight;
  * project.
  */
 public class Robot extends TimedRobot {
+  Command autonomousCommand;
   // private static final String kDefaultAuto = "Default";
   // private static final String kCustomAuto = "My Auto";
   // private String m_autoSelected;
@@ -54,8 +58,6 @@ public class Robot extends TimedRobot {
   // ControlPanel contPanel;
 
   AutoPaths auto;
-
-  // private double m_LimelightSteerCommand = 0.0;
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -76,12 +78,12 @@ public class Robot extends TimedRobot {
     ll = new Limelight();
     stop = false;
     // contPanel = new ControlPanel();
-    try {
-      auto = new AutoPaths(drive);
-    } catch (IOException | ParseException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
+    // try {
+    //   auto = new AutoPaths(drive);
+    // } catch (IOException | ParseException e) {
+    //   // TODO Auto-generated catch block
+    //   e.printStackTrace();
+    // }
   }
 
   /**
@@ -94,7 +96,11 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    CommandScheduler.getInstance().run();
+    // CommandScheduler.getInstance().run();
+    // System.out.printf("Shooter Speed: %.4f", shooter.getSpeed());
+    // System.out.printf("Drive Speed:   %.4f", drive.getWheelSpeeds());
+    // System.out.printf("Left Speed:    %.4f   Right Speed:     %.4f", drive.getLSpeed(), drive.getRSpeed());
+    
   }
 
   /**
@@ -110,7 +116,26 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-   
+    drive.offLine();
+    // lineTaget();
+
+    // Timer.delay(1);
+
+    // shooter.shoot();
+    // mag.shoot();
+    // Timer.delay(0.5);
+
+    // mag.advance();
+    // Timer.delay(1);
+
+    // mag.stopoAdvance();
+    // mag.shoot();
+    // Timer.delay(1);
+
+    // mag.advance();
+    // Timer.delay(0.5);
+    // mag.stopoAdvance();
+    // mag.shoot();
   }
 
   /**
@@ -118,7 +143,31 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousPeriodic() {
-    auto.autoMove("PathWeaver\\output\\Forward.wpilib.json");
+    // drive.driveTo(0.05);
+    // Timer.delay(1);
+    // lineTaget();
+
+    // Timer.delay(1);
+
+    // shooter.shoot();
+    // mag.shoot();
+    // Timer.delay(0.5);
+
+    // mag.advance();
+    // Timer.delay(1);
+
+    // mag.stopoAdvance();
+    // mag.shoot();
+    // Timer.delay(1);
+
+    // mag.advance();
+    // Timer.delay(0.5);
+    // mag.stopoAdvance();
+    // mag.shoot();
+    
+    
+    // auto.autoMove("PathWeaver/output/Forward.wpilib.json");
+    // autonomousCommand = new 
    //helo
   }
 
@@ -171,8 +220,13 @@ public class Robot extends TimedRobot {
 
     if (DS.getLimelightStraigten()) {
         drive.drive(DriveMode.kCurve, speedInput, ll.getLLSteering(), Controls.SENSITIVITY);
+        ll.setLEDState(LEDState.on);
+        if (-0.05 < ll.getLLSteering() && ll.getLLSteering() < 0.05) {
+          DS.vibrate(DS.driver, 0.4);
+        }
     } else {
         drive.drive(DriveMode.kCurve, speedInput, turnInput, Controls.SENSITIVITY);
+        ll.setLEDState(LEDState.off);
     }
 
     drive.shift(!highGear);
@@ -184,7 +238,9 @@ public class Robot extends TimedRobot {
   public void shooterControl(){
     if(DS.getShoot()){
       shooter.shoot();
-    }else{
+    } if (DS.getLowShot()) {
+      shooter.lowShoot();
+    } else{
       shooter.idle();
     }
   }
@@ -224,6 +280,8 @@ public class Robot extends TimedRobot {
 
     if (DS.getMagazine() && !stop) {
       mag.advance();
+    }if (DS.getMagUnjam()) {
+      mag.unjam();
     } else {
       mag.stopoAdvance();
     }
@@ -275,6 +333,16 @@ public class Robot extends TimedRobot {
 } else {
   //Code for no data received yet
 }
+  }
+
+  public void lineTaget(){
+    int threshhold = 1;
+    while (-threshhold > ll.getHorizontalAngle() || ll.getHorizontalAngle() > threshhold){
+      ll.setLEDState(LEDState.on);
+      drive.drive(DriveMode.kArcade, 0, ll.getLLSteering(), Controls.SENSITIVITY);
+    }
+    drive.drive(DriveMode.kArcade, 0, 0, Controls.SENSITIVITY);
+    ll.setLEDState(LEDState.off);
   }
 
 

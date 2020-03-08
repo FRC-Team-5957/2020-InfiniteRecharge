@@ -50,7 +50,7 @@ public class DS {
         return operator.getRawButtonPressed(Controls.INTAKE_UP);
     }
 
-    public static boolean getIntDown() {
+    public static boolean getIntUp() {
      if (operator.getPOV() == 0) {
          return true;
      } else {
@@ -58,7 +58,7 @@ public class DS {
      }
     }
 
-    public static boolean getIntUp() {
+    public static boolean getIntDown() {
         if (operator.getPOV() == 180) {
             return true;
         } else {
@@ -83,15 +83,29 @@ public class DS {
     }
 
     public static boolean getControlPanelExtend() {
-        return operator.getRawButtonPressed(Controls.CONTPANE_UP);
+        // return operator.getRawButtonPressed(Controls.CONTPANE_UP);
+        return false;
     }
 
     public static boolean getControlPanelSpin() {
-        return operator.getRawButton(Controls.CONTPANE_SPIN);
+        // return operator.getRawButton(Controls.CONTPANE_SPIN);
+        return false;
     }
 
     public static boolean getMagThing() {
-        return operator.getRawButton(Controls.MAG_THING);
+        if (operator.getRawAxis(Controls.LOAD_BALL) != 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public static boolean getLowShot() {
+        return operator.getRawButton(Controls.LOWGOAL_SHOOT);
+    }
+
+    public static boolean getMagUnjam() {
+        return operator.getRawButton(Controls.MAGAZINE_UNJAM);
     }
 
     // Utils
@@ -103,6 +117,40 @@ public class DS {
     public static void vibrate(Joystick j, double intensity) {
         j.setRumble(RumbleType.kLeftRumble, intensity);
         j.setRumble(RumbleType.kRightRumble, intensity);
+    }
+
+    public static int getDpad(int pos) {
+        int angle;
+        switch(pos) {
+            case 1:
+                angle = 0;
+                break;
+            case 2:
+                angle = 45;
+                break;
+            case 3:
+                angle = 90;
+                break;
+            case 4:
+                angle = 135;
+                break;
+            case 5:
+                angle = 180;
+                break;
+            case 6:
+                angle = 225;
+                break;
+            case 7:
+                angle = 270;
+                break;
+            case 8:
+                angle = 315;
+                break;
+            default:
+                angle = 0;
+                break;
+        }
+        return angle;
     }
 }
  

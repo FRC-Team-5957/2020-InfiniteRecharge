@@ -46,7 +46,7 @@ public class AutoPaths {
     drive = subsystem;
 
     // parsing file "pathweaver.json"
-    Object obj = new JSONParser().parse(new FileReader("PathWeaver\\pathweaver.json"));
+    Object obj = new JSONParser().parse(new FileReader("PathWeaver/pathweaver.json"));
 
     // typecasting obj to JSONObject
     jo = (JSONObject) obj;
@@ -89,12 +89,11 @@ public class AutoPaths {
       while (scanner.hasNextLine()) {
         String line = scanner.nextLine();
         System.out.println(line);
-        String pathPath = "PathWeaver\\output\\" + line + ".wpilib.json" ;
+        String pathPath = "PathWeaver/output/" + line + ".wpilib.json" ;
         System.out.println(pathPath);
       }
       scanner.close();
     } catch (FileNotFoundException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
   }

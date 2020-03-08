@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.SPI;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
@@ -21,15 +22,12 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.RobotMap;
-// import frc.robot.Utils;
-
 
 public class ShiftingWestCoast extends SubsystemBase  {
-
     // Declare drive train parts
     CANSparkMax rightMaster, rightSlave, leftMaster, leftSlave;
     DifferentialDrive drive;
-
+    Timer timer;
     
     private CANEncoder leftEncoder, rightEncoder;
 
@@ -40,14 +38,16 @@ public class ShiftingWestCoast extends SubsystemBase  {
      // Odometry class for tracking robot pose
     private DifferentialDriveOdometry m_odometry;
 
-    //153,600/6,480
+    //153,600/6,480 
 
 
     public ShiftingWestCoast() {
-        initDrive();
-        initShift();
         navx = new AHRS(SPI.Port.kMXP);
         navx.reset();
+        initDrive();
+        initShift();
+        timer = new Timer();
+
     }
 
     @Override
@@ -91,11 +91,20 @@ public class ShiftingWestCoast extends SubsystemBase  {
 
         drive = new DifferentialDrive(rightMaster, leftMaster);
         drive.setMaxOutput(Constants.DRIVE_LOW); // Maybe change this to high if its too slow
-
+        m_odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
+        drive.setSafetyEnabled(false);
     }
 
     public DifferentialDriveWheelSpeeds getWheelSpeeds() {
       return new DifferentialDriveWheelSpeeds(rightEncoder.getVelocity(), rightEncoder.getVelocity());
+    }
+
+    public double getLSpeed(){
+      return leftEncoder.getVelocity();
+    }
+
+    public double getRSpeed(){
+      return rightEncoder.getVelocity();
     }
 
 
@@ -165,7 +174,7 @@ public class ShiftingWestCoast extends SubsystemBase  {
    *
    * @return the robot's heading in degrees, from -180 to 180
    */
-      public double getHeading() {
+      public float getHeading() {
        return navx.getYaw();
       }
 
@@ -193,4 +202,35 @@ public class ShiftingWestCoast extends SubsystemBase  {
     //  this is essential to ensuring their accuracy."
   }
 
+  public void driveTo(double position){
+    double speed = 0.7;
+    double leftTarget = leftEncoder.getPosition() + position;
+    double rightTarget = rightEncoder.getPosition() + position;
+    if (position>0){
+    while (leftEncoder.getPosition() < leftTarget && rightEncoder.getPosition() < rightTarget) {
+      leftMaster.set(speed);
+      rightMaster.set(-speed);
+    }
+  } else {
+    while (leftEncoder.getPosition() > leftTarget && rightEncoder.getPosition() > rightTarget) {
+      rightMaster.set(speed);
+      leftMaster.set(-speed);
+  }
+    rightMaster.set(0);
+    leftMaster.set(0);
+
+  }
+}
+
+public void offLine(){
+  double speed = 0.3;
+    timer.reset();
+    timer.start();
+    while(timer.get() <= 2){
+      rightMaster.set(-speed);
+      leftMaster.set(speed);
+    }
+    rightMaster.set(0);
+    leftMaster.set(0);
+}
 }

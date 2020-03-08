@@ -24,7 +24,10 @@ public class Magazine extends SubsystemBase {
     public void initMotors() {
         magBot = new CANSparkMax(RobotMap.MAGBOT_BELT, MotorType.kBrushless);
         magTop = new CANSparkMax(RobotMap.MAGTOP_BELT, MotorType.kBrushless);
+        magBot.setSecondaryCurrentLimit(30);
+        magTop.setSecondaryCurrentLimit(30);
         magTop.follow(magBot, true);
+        
     }
 
     public void initSolenoid() {
@@ -35,6 +38,11 @@ public class Magazine extends SubsystemBase {
     public void advance() {
         magBot.set(Constants.INTAKE_SPEED);
         magTop.set(Constants.INTAKE_SPEED);
+    }
+
+    public void unjam() {
+        magBot.set(Constants.INTAKE_SPEED/2);
+        magTop.set(Constants.INTAKE_SPEED/2);
     }
 
     public void stopoAdvance() {
@@ -55,6 +63,11 @@ public class Magazine extends SubsystemBase {
     }
     public void retract(){
         somethingIdk.set(Value.kForward);
+    }
+
+    public void shoot(){
+        extend();
+        retract();
     }
     //Add in pneumatic pistons 
 }
